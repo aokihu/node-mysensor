@@ -101,25 +101,46 @@ export default class MySensor extends EventEmitter {
   }
 
   /**
-   * 
-   * @param message Parsed mysensor mesage
+   * @private
+   * @function
+   * @param message Parsed mysensor message
    */
   private doCommandInternal(message: IMysensorMessage) {
     this.emit('internal', message);
   }
 
+  /**
+   * @private
+   * @function
+   * @param message Parsed mysensor message
+   */
   private doCommandPresentation(message: IMysensorMessage) {
     this.emit('presentation', message);
   }
 
+  /**
+   * @private
+   * @function
+   * @param message Parsed mysensor message
+   */
   private doCommandReq(message: IMysensorMessage) {
     this.emit('req', message);
   }
 
+  /**
+   * @private
+   * @function
+   * @param message Parsed mysensor message
+   */
   private doCommandSet(message: IMysensorMessage) {
     this.emit('set', message);
   }
 
+  /**
+   * @private
+   * @function
+   * @param message Parsed mysensor message
+   */
   private doCommandStream(message: IMysensorMessage) {
     this.emit('stream', message);
   }

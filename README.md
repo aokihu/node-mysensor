@@ -28,18 +28,19 @@ const Mysensor = require('./index.js');
 
 const sensor = new Mysensor("/dev/tty.usbserial-A800H5SE", 115200);
 
-sensor.on('raw', console.log); // it will display RAW serial data
-
-sensor.on('message', console.log); // it will display struction data
+sensor.on('message', console.table); // it will display struction data
 
 sensor.on('presentation', (d) => {
   console.log("Device presentation", d);
 }) // it will show when device send presentation information
+
+sensor.on('internal', (d) => {
+  console.log("Device presentation", d);
+}) // it will show internal command
 ```
 
 ## Events
 
-* raw
 * message
 * presentation
-
+* internal
