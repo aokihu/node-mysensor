@@ -1,8 +1,15 @@
-const Mysensor = require('./index.js');
+const Mysensor = require('./dest/index.js').default;
+Mysensor.DEBUG = false
+async function main() {
+  try{
+    const mysensor = new Mysensor('/dev/cu.usbserial-A800H5SE', 115200)
+    console.log('Serial port is opened')
+    mysensor.on('message', console.table)
 
-const sensor = new Mysensor("/dev/tty.usbserial-A800H5SE", 115200);
+  } catch(err){
+    console.error(err)
+  }
+ 
+}
 
-sensor.on('message', console.log);
-sensor.on('presentation', (d) => {
-  console.log("Device presentation", d)
-})
+main();

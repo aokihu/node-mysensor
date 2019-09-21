@@ -1,10 +1,11 @@
 {
   "name": "node-mysensor",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "MySensor serial gateway communication interface for Nodejs",
-  "main": "index.js",
+  "main": "./dest/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc ./src/index --outDir ./dest",
+    "test": "tsc ./src/index --outDir ./dest && node test.js"
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,7 @@
   "homepage": "https://github.com/aokihu/node-mysensor#readme",
   "dependencies": {
     "@serialport/parser-readline": "^2.0.2",
+    "@types/serialport": "^7.0.4",
     "serialport": "^7.1.5"
   }
 }
