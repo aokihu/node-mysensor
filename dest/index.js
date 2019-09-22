@@ -75,5 +75,5 @@ class MySensor extends EventEmitter {
         this.emit('stream', message);
     }
 }
-exports.default = MySensor;
+exports.MySensor = MySensor;
 MySensor.DEBUG = false;

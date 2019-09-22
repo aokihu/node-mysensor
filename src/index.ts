@@ -7,8 +7,10 @@ const EventEmitter = require('events');
 /**
  * @class
  */
-export default class MySensor extends EventEmitter {
+export class MySensor extends EventEmitter {
 
+  static IMysensorMessage:IMysensorMessage;
+  static MysensorCommand:MysensorCommand;
   static DEBUG = false; // The switch to display debug output
 
   private serial: SerialPort;
