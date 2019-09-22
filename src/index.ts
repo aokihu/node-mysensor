@@ -3,14 +3,11 @@ import {IMysensorMessage, MysensorCommand} from './libs/message'
 const SerialportReadline = require('@serialport/parser-readline');
 const EventEmitter = require('events');
 
-
 /**
  * @class
  */
-export class MySensor extends EventEmitter {
+export default class MySensor extends EventEmitter {
 
-  static IMysensorMessage:IMysensorMessage;
-  static MysensorCommand:MysensorCommand;
   static DEBUG = false; // The switch to display debug output
 
   private serial: SerialPort;
@@ -145,6 +142,19 @@ export class MySensor extends EventEmitter {
    */
   private doCommandStream(message: IMysensorMessage) {
     this.emit('stream', message);
+  }
+
+
+  /// PUBLIC FUNCTIONS
+
+  public send(nodeID:number, childID:number, command: MysensorCommand, type: number, ack=0,  payload?: number | string,) {
+    const unpackagedMessage = [nodeID, childID, command, type, ack, payload];
+    const packagedMessage = unpackagedMessage.join(';') + "\n";
+
+    if(MySensor.DEBUG) console.log("Packaged Message", packagedMessage);
+
+    if(this.serial.isOpen) this.serial.write(packagedMessage);
+    else throw new Error('Serial is not open!');
   }
 
 }

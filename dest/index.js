@@ -74,6 +74,16 @@ class MySensor extends EventEmitter {
     doCommandStream(message) {
         this.emit('stream', message);
     }
+    send(nodeID, childID, command, type, ack = 0, payload) {
+        const unpackagedMessage = [nodeID, childID, command, type, ack, payload];
+        const packagedMessage = unpackagedMessage.join(';') + "\n";
+        if (MySensor.DEBUG)
+            console.log("Packaged Message", packagedMessage);
+        if (this.serial.isOpen)
+            this.serial.write(packagedMessage);
+        else
+            throw new Error('Serial is not open!');
+    }
 }
-exports.MySensor = MySensor;
+exports.default = MySensor;
 MySensor.DEBUG = false;

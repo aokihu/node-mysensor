@@ -28,16 +28,53 @@ const Mysensor = require('./index.js');
 
 const sensor = new Mysensor("/dev/tty.usbserial-A800H5SE", 115200);
 
-sensor.on('message', console.table); // it will display struction data
+sensor.on('message', console.table); 
 
-sensor.on('presentation', (d) => {
-  console.log("Device presentation", d);
+/**
+┌─────────┬─────────────────────────────┐
+│ (index) │           Values            │
+├─────────┼─────────────────────────────┤
+│ nodeID  │              0              │
+│ childID │             255             │
+│ command │              3              │
+│   ack   │              0              │
+│  type   │             14              │
+│ payload │ 'Gateway startup complete.' │
+└─────────┴─────────────────────────────┘
+ */
+
+sensor.on('presentation', (message) => {
+  console.log("Device presentation", message);
 }) // it will show when device send presentation information
 
-sensor.on('internal', (d) => {
-  console.log("Device presentation", d);
+sensor.on('internal', (message) => {
+  console.log("Device presentation", message);
 }) // it will show internal command
+
+sensor.on('set', (message) => {...})
+sensor.on('req', (message) => {...})
+sensor.on('stream', (message) = {...})
+
+sensor.send(15,1,2,3,0,1) // Send message to node
 ```
+
+## Static variable
+
+* `MySensor.DEBUG` The switch to show debug message
+
+## Methods
+
+* *instance*.send(nodeID, childID, command, type, ack, payload)
+  
+  Send raw data to node
+  **nodeID** Target node's id
+  **chidID** Target node's child id
+  **command** Send command type
+  **type** Date type
+  **ack** Force node replay message 
+  **payload** Real set data
+  
+  You can read detail document from offical site at [here](https://www.mysensors.org/download/serial_api_20#message-structure)
 
 ## Events
 
@@ -47,6 +84,8 @@ sensor.on('internal', (d) => {
 * req
 * set
 * stream
+
+All events supply only one param for callback function, it is parsed message, the struct of message you can SEE BELOW ***Message*** Section
 
 ## Message
 

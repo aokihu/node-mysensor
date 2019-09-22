@@ -1,9 +1,7 @@
 import SerialPort = require("serialport");
-import { IMysensorMessage, MysensorCommand } from './libs/message';
+import { MysensorCommand } from './libs/message';
 declare const EventEmitter: any;
-export declare class MySensor extends EventEmitter {
-    static IMysensorMessage: IMysensorMessage;
-    static MysensorCommand: MysensorCommand;
+export default class MySensor extends EventEmitter {
     static DEBUG: boolean;
     private serial;
     private parser;
@@ -18,5 +16,6 @@ export declare class MySensor extends EventEmitter {
     private doCommandReq;
     private doCommandSet;
     private doCommandStream;
+    send(nodeID: number, childID: number, command: MysensorCommand, type: number, ack?: number, payload?: number | string): void;
 }
 export {};
