@@ -13,7 +13,7 @@ export default class MySensor extends EventEmitter {
 
   private serial: SerialPort;
   private parser: any;
-  public port; // Serial interface port name
+  public port: string; // Serial interface port name
   public baudrate = 115200; // Serial interface transfer speed, default is 115200
 
   /**
@@ -53,9 +53,9 @@ export default class MySensor extends EventEmitter {
    */
   private preprocess(data:string){
     const [nodeID, childID, command,ack,type,payload] = data.split(';')
-    
+
     const message: IMysensorMessage = {
-      nodeID: Number(nodeID), 
+      nodeID: Number(nodeID),
       childID: Number(childID),
       command: Number(command),
       ack: Number(ack),

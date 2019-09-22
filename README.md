@@ -44,3 +44,19 @@ sensor.on('internal', (d) => {
 * message
 * presentation
 * internal
+* req
+* set
+* stream
+
+## Message
+
+The message is parsed by MySensor protocol 2.0
+
+|   key    | type |     value     |
+|---------|-------|---------------|
+| nodeID  | Number| The unique id of the node that sends or should receive the message (address)|
+| childID | Number|Each node can have several sensors attached. This is the child-sensor-id that uniquely identifies one attached sensor|
+| command | Number|Type of command sent |
+| ack     | Number|The ack parameter has the following meaning: Outgoing: 0 = unacknowledged message, 1 = request ack from destination node, Incoming: 0 = normal message, 1 = this is an ack message |
+| type    | Number|Depending on command, the type field has different meaning. |
+| payload | Number OR String| The payload holds the message coming in from sensors or instruction going out to actuators. |

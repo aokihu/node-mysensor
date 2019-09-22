@@ -1,11 +1,11 @@
 {
   "name": "node-mysensor",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "MySensor serial gateway communication interface for Nodejs",
   "main": "./dest/index.js",
   "scripts": {
-    "build": "tsc ./src/index --outDir ./dest",
-    "test": "tsc ./src/index --outDir ./dest && node test.js"
+    "build": "tsc",
+    "test": "tsc && node test.js"
   },
   "repository": {
     "type": "git",
