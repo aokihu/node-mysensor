@@ -67,12 +67,12 @@ sensor.send(15,1,2,3,0,1) // Send message to node
 * *instance*.send(nodeID, childID, command, type, ack, payload)
   
   Send raw data to node
-  **nodeID** Target node's id
-  **chidID** Target node's child id
-  **command** Send command type
-  **type** Date type
-  **ack** Force node replay message 
-  **payload** Real set data
+  - **nodeID** Target node's id
+  - **chidID** Target node's child id
+  - **command** Send command type
+  - **type** Date type
+  - **ack** Force node replay message 
+  - **payload** Real set data
   
   You can read detail document from offical site at [here](https://www.mysensors.org/download/serial_api_20#message-structure)
 
