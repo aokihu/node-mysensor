@@ -6,6 +6,10 @@ export interface IMysensorMessage {
     type: number | MysensorInterType;
     payload: any;
 }
+export declare enum MysensorAck {
+    NO = 0,
+    YES = 1
+}
 export declare enum MysensorCommand {
     presentation = 0,
     set = 1,

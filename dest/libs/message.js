@@ -1,5 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var MysensorAck;
+(function (MysensorAck) {
+    MysensorAck[MysensorAck["NO"] = 0] = "NO";
+    MysensorAck[MysensorAck["YES"] = 1] = "YES";
+})(MysensorAck = exports.MysensorAck || (exports.MysensorAck = {}));
 var MysensorCommand;
 (function (MysensorCommand) {
     MysensorCommand[MysensorCommand["presentation"] = 0] = "presentation";

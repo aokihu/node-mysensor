@@ -24,8 +24,8 @@ class MySensor extends EventEmitter {
             throw new Error('No vaild serial port found!');
         }
     }
-    send(nodeID, childID, command, type, ack = 0, payload) {
-        const unpackagedMessage = [nodeID, childID, command, type, ack, payload];
+    send(nodeID, childID, command, ack = 0, type, payload) {
+        const unpackagedMessage = [nodeID, childID, command, ack, type, payload];
         const packagedMessage = unpackagedMessage.join(';') + "\n";
         if (MySensor.DEBUG)
             console.log("Packaged Message", packagedMessage);

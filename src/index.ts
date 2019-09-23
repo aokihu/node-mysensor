@@ -46,7 +46,7 @@ export default class MySensor extends EventEmitter {
 
   /// PUBLIC FUNCTIONS
 
-  public send(nodeID: number, childID: number, command: MysensorCommand, type: number, ack = 0, payload?: number | string, ) {
+  public send(nodeID: number, childID: number, command: MysensorCommand, ack = 0, type: number, payload?: number | string, ) {
     const unpackagedMessage = [nodeID, childID, command, ack, type, payload];
     const packagedMessage = unpackagedMessage.join(';') + "\n";
 

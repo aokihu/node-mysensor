@@ -7,6 +7,11 @@ export interface IMysensorMessage {
     payload: any
 }
 
+export enum MysensorAck {
+    NO,
+    YES
+}
+
 export enum MysensorCommand {
     presentation,
     set,

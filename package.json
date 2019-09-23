@@ -1,6 +1,6 @@
 {
   "name": "node-mysensor",
-  "version": "2.1.10",
+  "version": "2.1.12",
   "description": "MySensor serial gateway communication interface for Nodejs",
   "main": "./dest/index.js",
   "scripts": {

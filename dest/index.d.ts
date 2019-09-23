@@ -9,7 +9,7 @@ export default class MySensor extends EventEmitter {
     baudrate: number;
     constructor(port: string, baudrate?: number);
     static getSerialPorts(): Promise<SerialPort.PortInfo[]>;
-    send(nodeID: number, childID: number, command: MysensorCommand, type: number, ack?: number, payload?: number | string): void;
+    send(nodeID: number, childID: number, command: MysensorCommand, ack: number | undefined, type: number, payload?: number | string): void;
     private preprocess;
     private parseCmd;
     private doCommandInternal;
