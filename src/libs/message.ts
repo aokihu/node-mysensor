@@ -2,7 +2,7 @@ export interface IMysensorMessage {
     nodeID: number;
     childID: number;
     command: MysensorCommand;
-    ack: number;
+    ack: MysensorAck;
     type: number | MysensorInterType;
     payload: any
 }

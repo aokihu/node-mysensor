@@ -8,7 +8,7 @@ CHANGELOG
 >
 > AFTER:  send message: nodeID;childID;command:ack;type:payload
 
-# 2.1.11
+# 2.1.13
 
 - Add `ENUM` MysensorACK
 
