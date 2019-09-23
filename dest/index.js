@@ -24,6 +24,16 @@ class MySensor extends EventEmitter {
             throw new Error('No vaild serial port found!');
         }
     }
+    send(nodeID, childID, command, type, ack = 0, payload) {
+        const unpackagedMessage = [nodeID, childID, command, type, ack, payload];
+        const packagedMessage = unpackagedMessage.join(';') + "\n";
+        if (MySensor.DEBUG)
+            console.log("Packaged Message", packagedMessage);
+        if (this.serial.isOpen)
+            this.serial.write(packagedMessage);
+        else
+            throw new Error('Serial is not open!');
+    }
     preprocess(data) {
         const [nodeID, childID, command, ack, type, payload] = data.split(';');
         const message = {
@@ -74,16 +84,6 @@ class MySensor extends EventEmitter {
     doCommandStream(message) {
         this.emit('stream', message);
     }
-    send(nodeID, childID, command, type, ack = 0, payload) {
-        const unpackagedMessage = [nodeID, childID, command, type, ack, payload];
-        const packagedMessage = unpackagedMessage.join(';') + "\n";
-        if (MySensor.DEBUG)
-            console.log("Packaged Message", packagedMessage);
-        if (this.serial.isOpen)
-            this.serial.write(packagedMessage);
-        else
-            throw new Error('Serial is not open!');
-    }
 }
-exports.default = MySensor;
 MySensor.DEBUG = false;
+exports.default = MySensor;

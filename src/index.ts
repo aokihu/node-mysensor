@@ -1,5 +1,5 @@
 import SerialPort = require("serialport");
-import {IMysensorMessage, MysensorCommand} from './libs/message'
+import { IMysensorMessage, MysensorCommand } from './libs/message'
 const SerialportReadline = require('@serialport/parser-readline');
 const EventEmitter = require('events');
 
@@ -23,8 +23,8 @@ export default class MySensor extends EventEmitter {
   constructor(port: string, baudrate?: number) {
     super();
     this.port = port;
-    if(baudrate) this.baudrate = baudrate;
-    this.serial = new SerialPort(this.port, {baudRate: this.baudrate}, (err) => {if(err) throw new Error(err.message)})
+    if (baudrate) this.baudrate = baudrate;
+    this.serial = new SerialPort(this.port, { baudRate: this.baudrate }, (err) => { if (err) throw new Error(err.message) })
 
     this.parser = this.serial.pipe(new SerialportReadline({ delimiter: '\n' }));
     this.parser.on('data', this.preprocess.bind(this))
@@ -44,14 +44,29 @@ export default class MySensor extends EventEmitter {
     }
   }
 
+  /// PUBLIC FUNCTIONS
+
+  public send(nodeID: number, childID: number, command: MysensorCommand, type: number, ack = 0, payload?: number | string, ) {
+    const unpackagedMessage = [nodeID, childID, command, ack, type, payload];
+    const packagedMessage = unpackagedMessage.join(';') + "\n";
+
+    if (MySensor.DEBUG) console.log("Packaged Message", packagedMessage);
+
+    if (this.serial.isOpen) this.serial.write(packagedMessage);
+    else throw new Error('Serial is not open!');
+  }
+
+
+  /// PRIVATE FUNCTIONS
+
   /**
    * @private
    * @function
    * @event message {IMysensorMessage} Parsed Message
    * @param data Raw message
    */
-  private preprocess(data:string){
-    const [nodeID, childID, command,ack,type,payload] = data.split(';')
+  private preprocess(data: string) {
+    const [nodeID, childID, command, ack, type, payload] = data.split(';')
 
     const message: IMysensorMessage = {
       nodeID: Number(nodeID),
@@ -69,7 +84,7 @@ export default class MySensor extends EventEmitter {
     // Next
     this.parseCmd(message);
 
-    if(MySensor.DEBUG) console.table(message)
+    if (MySensor.DEBUG) console.table(message)
   }
 
   /**
@@ -78,8 +93,8 @@ export default class MySensor extends EventEmitter {
    * @param message Parsed mysensor message
    * @description parse message command
    */
-  private parseCmd(message:IMysensorMessage) {
-    switch(message.command) {
+  private parseCmd(message: IMysensorMessage) {
+    switch (message.command) {
       case MysensorCommand.internal:
         this.doCommandInternal(message);
         break;
@@ -145,17 +160,7 @@ export default class MySensor extends EventEmitter {
   }
 
 
-  /// PUBLIC FUNCTIONS
 
-  public send(nodeID:number, childID:number, command: MysensorCommand, type: number, ack=0,  payload?: number | string,) {
-    const unpackagedMessage = [nodeID, childID, command, type, ack, payload];
-    const packagedMessage = unpackagedMessage.join(';') + "\n";
-
-    if(MySensor.DEBUG) console.log("Packaged Message", packagedMessage);
-
-    if(this.serial.isOpen) this.serial.write(packagedMessage);
-    else throw new Error('Serial is not open!');
-  }
 
 }
 
